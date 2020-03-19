@@ -4,7 +4,7 @@ const conString = "postgres://postgres:1234@localhost:5433/postgres";
 const db = pgp(conString);
 
 function getAll(req, res, next) {
-    db.any('SELECT name, id FROM employee WHERE isDeleted=false;',
+    db.any('SELECT name, id FROM employee;',
         {
             active: true,
         })
