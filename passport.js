@@ -46,6 +46,11 @@ const middleWare = async (app) => {
     app.use(express.static(path.join(__dirname, 'public')));
     app.use(expressSession({ secret: 'keyboard cat', resave: true, saveUninitialized: false }));
     app.use(bodyParser.urlencoded({ extended: true }));
+    app.use((response, next) => {
+        response.header("Access-Control-Allow-Origin", "*");
+        response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
     // Passport calls serializeUser and deserializeUser to
     // manage users
     passport.serializeUser(function (user, done) {

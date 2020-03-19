@@ -1,0 +1,240 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Swagger POC"
+        
+    },
+    "produces": [
+        "application/json"
+    ],
+    "definitions": {
+        "id": {
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "employee": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                }
+                
+            }
+        },
+        "employees": {
+            "type": "object",
+            "properties": {
+                "employees": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/employee"
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/getEmployees": {
+            "get": {
+                "tags": [
+                    "Employees Data"
+                ],
+                "summary": "Get all Employees in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/employees"
+                        }
+                    }
+                }
+            }
+        },
+        "/getEmployee/{id}": {
+            "get": {
+                "tags": [
+                    "Employees Data"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "id of the employee that we want to fetch",
+                        "type": "integer"
+                    }
+                ],
+                "summary": "Get details of an Employee in system",
+                "requestBody": {
+                    "description": "employee Object",
+                    "required": true,
+                    "content": {
+                        "json": {
+                            "schema": {
+                                "$ref": "#/definitions/employee"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/employee"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/addEmployee": {
+            "post": {
+                "tags": [
+                    "Employees Data"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Details of Employee to be added",
+                        "schema": {
+                            "$ref": "#/definitions/employee"
+                        }
+                    }
+                ],
+                "summary": "Add a new Employee in system",
+                "requestBody": {
+                    "description": "employee Object",
+                    "required": true,
+                    "content": {
+                        "json": {
+                            "schema": {
+                                "$ref": "#/definitions/employee"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/employee"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/deleteEmployee/{id}": {
+            "delete": {
+                "tags": [
+                    "Employees Data"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "id of the employee that we want to match",
+                        "type": "integer"
+                    }
+                ],
+                "summary": "Delete an Employee in system",
+                "requestBody": {
+                    "description": "employee Object",
+                    "required": true,
+                    "content": {
+                        "json": {
+                            "schema": {
+                                "$ref": "#/definitions/employee"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/employee"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/updateEmployee/{id}/{newName}": {
+            "put": {
+                "tags": [
+                    "Employees Data"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "description": "id of the employee that we want to match",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "newName",
+                        "in": "path",
+                        "required": false,
+                        "description": "New name of the employee that we want to update",
+                        "type": "string"
+                    }
+                ],
+                "summary": "Update an Employee in system",
+                "requestBody": {
+                    "description": "employee Object",
+                    "required": true,
+                    "content": {
+                        "json": {
+                            "schema": {
+                                "$ref": "#/definitions/employee"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/employee"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        }
+    },
+    "basedir": "__dirname",
+    "files": [
+        "'./routes/apiRouter.js'"
+    ]
+}

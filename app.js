@@ -7,6 +7,7 @@ var logger = require('morgan');
 require("dotenv").config();
 // const {authenticate} = require('cirrus-auth-module')
 var publicRouter = require('./routes/public');
+var swaggerRouter = require('./routes/swagger');
 var privateRouter = require('./routes/private');
 const { middleWare } = require('./passport');
 
@@ -24,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.use('/', swaggerRouter);
 app.use('/', publicRouter);
 middleWare(app)
 app.post('/login', (req, res)=>{
