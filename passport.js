@@ -39,7 +39,6 @@ const getUser = (username, password) => {
             })
     })
 }
-
 const middleWare = async (app) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
@@ -60,7 +59,7 @@ const middleWare = async (app) => {
     passport.use(new LocalStrategy((username, password, cb) => {
         console.log('Passport middle ware called', username, password)
         getUser(username, password).then(({ user }) => {
-            cb(null, user)
+            cb(null, user[0])
         }).catch(error => {
             cb(error)
         })
@@ -73,7 +72,7 @@ const middleWare = async (app) => {
     app.use(passport.session());
 
     app.post('/login',
-        passport.authenticate('local', { successReturnToOrRedirect: '/' }),
+        passport.authenticate('local', { successReturnToOrRedirect: '/welcome' }),
         function (req, res) {
             console.log('ROUTE AFTER AUTHENTICATION........')
             res.redirect('/');
